@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.gustavoferreira.Kindle_API.controllers.MainController">
+   <children>
+      <MenuBar layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Arquivo">
+            <items>
+              <MenuItem fx:id="btnClose" mnemonicParsing="false" onAction="#close" text="Fechar" />
+                  <MenuItem fx:id="btnExit" mnemonicParsing="false" onAction="#exit" text="Sair" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Editar">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ajuda">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Sobre" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane layoutX="100.0" layoutY="75.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+        <tabs>
+          <Tab onSelectionChanged="#updateBookTable" text="Livros">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                           <children>
+                              <Button fx:id="btnAddBook" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#addBook" prefHeight="30.0" prefWidth="120.0" text="Adicionar" HBox.hgrow="NEVER" />
+                              <Button fx:id="btnEditBook" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#editBook" prefHeight="30.0" prefWidth="120.0" text="Editar" />
+                              <Button fx:id="btnRemoveBook" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#removeBook" prefHeight="30.0" prefWidth="120.0" text="Remover" HBox.hgrow="NEVER" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="bookTable" editable="true" layoutX="200.0" layoutY="60.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                          <columns>
+                            <TableColumn fx:id="clmBookTitle" editable="false" prefWidth="75.0" text="Título" />
+                            <TableColumn fx:id="clmBookPages" prefWidth="75.0" text="Páginas" />
+                              <TableColumn fx:id="clmBookWriters" prefWidth="75.0" text="Escritor(es)" />
+                              <TableColumn fx:id="clmBookGenres" prefWidth="75.0" text="Gêneros" />
+                              <TableColumn fx:id="clmBookPublisher" prefWidth="75.0" text="Editora" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab onSelectionChanged="#updateWriterTable" text="Escritores">
+            <content>
+              <AnchorPane>
+                     <children>
+                        <SplitPane dividerPositions="0.7" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <TableView fx:id="writerTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                          <TableColumn fx:id="clmWriterID" editable="false" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="clmWriterName" prefWidth="75.0" text="Name" />
+                                        <TableColumn fx:id="clmWriterSurname" prefWidth="75.0" text="Surname" />
+                                          <TableColumn fx:id="clmWriterEmail" prefWidth="75.0" text="Email" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <children>
+                                          <Button fx:id="btnRemoveWriter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#removeWriter" prefHeight="30.0" prefWidth="120.0" text="Remover" HBox.hgrow="NEVER" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="-15.0" layoutY="44.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane>
+                                             <children>
+                                                <VBox layoutX="34.0" layoutY="61.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <padding>
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label text="Nome:" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtWriterName" maxHeight="-Infinity" minHeight="-Infinity" onAction="#addWriter" prefHeight="30.0" VBox.vgrow="NEVER" />
+                                                      <Label text="Sobrenome:" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtWriterSurname" maxHeight="-Infinity" minHeight="-Infinity" onAction="#addWriter" prefHeight="30.0" VBox.vgrow="NEVER" />
+                                                      <Label text="Email:" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtWriterEmail" maxHeight="-Infinity" minHeight="-Infinity" onAction="#addWriter" prefHeight="30.0" VBox.vgrow="NEVER" />
+                                                      <Button fx:id="btnAddWriter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#addWriter" prefHeight="30.0" prefWidth="120.0" text="Adicionar" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab onSelectionChanged="#updateGenreList" text="Gêneros">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <ListView fx:id="genreList" editable="true" layoutX="200.0" layoutY="42.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                           <children>
+                              <TextField fx:id="txtGenre" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#addGenre" prefHeight="30.0" prefWidth="250.0" HBox.hgrow="NEVER" />
+                              <Button fx:id="btnAddGenre" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#addGenre" prefHeight="30.0" prefWidth="120.0" text="Adicionar" HBox.hgrow="NEVER" />
+                              <Button fx:id="btnRemoveGenre" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#removeGenre" prefHeight="30.0" prefWidth="120.0" text="Remover" HBox.hgrow="NEVER" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab onSelectionChanged="#updatePublisherTable" text="Editoras">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <SplitPane dividerPositions="0.7" layoutX="200.0" layoutY="93.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView fx:id="publisherTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="clmPublisherName" prefWidth="75.0" text="Nome" />
+                                        <TableColumn fx:id="clmPublisherEmail" prefWidth="75.0" text="Email" />
+                                          <TableColumn fx:id="clmPublisherPhone" prefWidth="75.0" text="Telefone" />
+                                          <TableColumn fx:id="clmPublisherCNPJ" editable="false" prefWidth="75.0" text="CNPJ" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <children>
+                                          <Button fx:id="btnRemovePublisher" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#removePublisher" prefHeight="30.0" prefWidth="120.0" text="Remover" HBox.hgrow="NEVER" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="-15.0" layoutY="41.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane>
+                                             <children>
+                                                <VBox layoutX="44.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <padding>
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label text="Nome:" VBox.vgrow="NEVER" />
+                                                      <TextField fx:id="txtPublisherName" maxHeight="-Infinity" minHeight="-Infinity" onAction="#addPublisher" prefHeight="30.0" VBox.vgrow="NEVER" />
+                                                      <Label text="Email:" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtPublisherEmail" maxHeight="-Infinity" minHeight="-Infinity" onAction="#addPublisher" prefHeight="30.0" VBox.vgrow="NEVER" />
+                                                      <Label text="Telefone" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtPublisherPhone" maxHeight="-Infinity" minHeight="-Infinity" onAction="#addPublisher" prefHeight="30.0" VBox.vgrow="NEVER" />
+                                                      <Label text="CNPJ:" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtPublisherCNPJ" maxHeight="-Infinity" minHeight="-Infinity" onAction="#addPublisher" prefHeight="30.0" VBox.vgrow="NEVER" />
+                                                      <Button fx:id="btnAddPublisher" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#addPublisher" prefHeight="30.0" prefWidth="120.0" text="Adicionar" VBox.vgrow="NEVER">
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
